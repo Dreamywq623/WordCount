@@ -1,55 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-
-int countCharacters(FILE* file) {
+int countCharacters(FILE *file) {
     int count = 0;
     char c;
-    while ((c = fgetc(file)) != EOF) {  // æ¯æ¬¡è¯»å–ä¸€ä¸ªå­—ç¬¦ï¼Œç›´åˆ°æ–‡ä»¶ç»“æŸ
+
+    while ((c = fgetc(file)) != EOF) {
         count++;
     }
-    return count;  // è¿”å›å­—ç¬¦æ€»æ•°
+
+    return count;
 }
 
-// å‡½æ•°ç”¨äºç»Ÿè®¡å•è¯æ•°
-int countWords(FILE* file) {
+int countWords(FILE *file) {
     int count = 0;
-    char word[100];
-    while (fscanf(file, "%s", word) != EOF) {  // ä½¿ç”¨fscanfè¯»å–å•è¯ï¼Œç›´åˆ°æ–‡ä»¶ç»“æŸ
-        count++;
+    char c;
+    int inWord = 0; // ±ê¼ÇÊÇ·ñÔÚµ¥´ÊÖĞ
+
+    while ((c = fgetc(file)) != EOF) {
+        if (isalpha(c)) {
+            inWord = 1;
+        } else if (inWord) {
+            inWord = 0;
+            count++;
+        }
     }
-    return count;  // è¿”å›å•è¯æ€»æ•°
+
+    return count;
 }
 
-int main(int argc, char* argv[]) {
-    if (argc != 3) {  // æ£€æŸ¥å‘½ä»¤è¡Œå‚æ•°æ•°é‡æ˜¯å¦æ­£ç¡®
-        printf("Usage: %s [-c | -w] [input_file_name]\n", argv[0]);
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        printf("²ÎÊı´íÎó£¡\n");
+        printf("ÓÃ·¨£º%s [parameter] [input_file_name]\n", argv[0]);
+        printf("[parameter] È¡ \"-c\" »ò \"-w\"\n");
+        printf("[input_file_name] Òª±»´¦ÀíµÄÎÄ±¾ÎÄ¼şÃû£¬Ä¬ÈÏ´æ·ÅÔÚÖ´ĞĞÎÄ¼şÄ¿Â¼ÏÂ\n");
         return 1;
     }
-    
-    char* option = argv[1];
-    char* filename = argv[2];
-    
-    FILE* file = fopen(filename, "r");  // æ‰“å¼€æ–‡ä»¶ä»¥è¿›è¡Œè¯»å–
-    if (file == NULL) {  // æ£€æŸ¥æ–‡ä»¶æ˜¯å¦æˆåŠŸæ‰“å¼€
-        printf("Error opening file.\n");
+
+    char *parameter = argv[1];
+    char *filename = argv[2];
+
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("ÎŞ·¨´ò¿ªÎÄ¼ş %s\n", filename);
         return 1;
     }
-    
-    int result;
-    if (strcmp(option, "-c") == 0) {  // å¦‚æœé€‰é¡¹æ˜¯-cï¼Œç»Ÿè®¡å­—ç¬¦æ•°
-        result = countCharacters(file);
-        printf("å­—ç¬¦æ•°ï¼š%d\n", result);
-    } else if (strcmp(option, "-w") == 0) {  // å¦‚æœé€‰é¡¹æ˜¯-wï¼Œç»Ÿè®¡å•è¯æ•°
-        result = countWords(file);
-        printf("å•è¯æ•°ï¼š%d\n", result);
+
+    int count = 0;
+    if (strcmp(parameter, "-c") == 0) {
+        count = countCharacters(file);
+        printf("×Ö·ûÊı£º%d\n", count);
+    } else if (strcmp(parameter, "-w") == 0) {
+        count = countWords(file);
+        printf("µ¥´ÊÊı£º%d\n", count);
     } else {
-        printf("Invalid option.\n");
+        printf("²ÎÊı´íÎó£¡\n");
+        printf("ÓÃ·¨£º%s [parameter] [input_file_name]\n", argv[0]);
+        printf("[parameter] È¡ \"-c\" »ò \"-w\"\n");
+        printf("[input_file_name] Òª±»´¦ÀíµÄÎÄ±¾ÎÄ¼şÃû£¬Ä¬ÈÏ´æ·ÅÔÚÖ´ĞĞÎÄ¼şÄ¿Â¼ÏÂ\n");
         return 1;
     }
-    
-    fclose(file);  // å…³é—­æ–‡ä»¶
+
+    fclose(file);
+
     return 0;
 }
-
