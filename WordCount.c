@@ -2,28 +2,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-// º¯ÊıÓÃÓÚÍ³¼Æ×Ö·ûÊı
+
 int countCharacters(FILE* file) {
     int count = 0;
     char c;
-    while ((c = fgetc(file)) != EOF) {  // Ã¿´Î¶ÁÈ¡Ò»¸ö×Ö·û£¬Ö±µ½ÎÄ¼ş½áÊø
+    while ((c = fgetc(file)) != EOF) {  // æ¯æ¬¡è¯»å–ä¸€ä¸ªå­—ç¬¦ï¼Œç›´åˆ°æ–‡ä»¶ç»“æŸ
         count++;
     }
-    return count;  // ·µ»Ø×Ö·û×ÜÊı
+    return count;  // è¿”å›å­—ç¬¦æ€»æ•°
 }
 
-// º¯ÊıÓÃÓÚÍ³¼Æµ¥´ÊÊı
+// å‡½æ•°ç”¨äºç»Ÿè®¡å•è¯æ•°
 int countWords(FILE* file) {
     int count = 0;
     char word[100];
-    while (fscanf(file, "%s", word) != EOF) {  // Ê¹ÓÃfscanf¶ÁÈ¡µ¥´Ê£¬Ö±µ½ÎÄ¼ş½áÊø
+    while (fscanf(file, "%s", word) != EOF) {  // ä½¿ç”¨fscanfè¯»å–å•è¯ï¼Œç›´åˆ°æ–‡ä»¶ç»“æŸ
         count++;
     }
-    return count;  // ·µ»Øµ¥´Ê×ÜÊı
+    return count;  // è¿”å›å•è¯æ€»æ•°
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 3) {  // ¼ì²éÃüÁîĞĞ²ÎÊıÊıÁ¿ÊÇ·ñÕıÈ·
+    if (argc != 3) {  // æ£€æŸ¥å‘½ä»¤è¡Œå‚æ•°æ•°é‡æ˜¯å¦æ­£ç¡®
         printf("Usage: %s [-c | -w] [input_file_name]\n", argv[0]);
         return 1;
     }
@@ -31,25 +31,25 @@ int main(int argc, char* argv[]) {
     char* option = argv[1];
     char* filename = argv[2];
     
-    FILE* file = fopen(filename, "r");  // ´ò¿ªÎÄ¼şÒÔ½øĞĞ¶ÁÈ¡
-    if (file == NULL) {  // ¼ì²éÎÄ¼şÊÇ·ñ³É¹¦´ò¿ª
+    FILE* file = fopen(filename, "r");  // æ‰“å¼€æ–‡ä»¶ä»¥è¿›è¡Œè¯»å–
+    if (file == NULL) {  // æ£€æŸ¥æ–‡ä»¶æ˜¯å¦æˆåŠŸæ‰“å¼€
         printf("Error opening file.\n");
         return 1;
     }
     
     int result;
-    if (strcmp(option, "-c") == 0) {  // Èç¹ûÑ¡ÏîÊÇ-c£¬Í³¼Æ×Ö·ûÊı
+    if (strcmp(option, "-c") == 0) {  // å¦‚æœé€‰é¡¹æ˜¯-cï¼Œç»Ÿè®¡å­—ç¬¦æ•°
         result = countCharacters(file);
-        printf("×Ö·ûÊı£º%d\n", result);
-    } else if (strcmp(option, "-w") == 0) {  // Èç¹ûÑ¡ÏîÊÇ-w£¬Í³¼Æµ¥´ÊÊı
+        printf("å­—ç¬¦æ•°ï¼š%d\n", result);
+    } else if (strcmp(option, "-w") == 0) {  // å¦‚æœé€‰é¡¹æ˜¯-wï¼Œç»Ÿè®¡å•è¯æ•°
         result = countWords(file);
-        printf("µ¥´ÊÊı£º%d\n", result);
+        printf("å•è¯æ•°ï¼š%d\n", result);
     } else {
         printf("Invalid option.\n");
         return 1;
     }
     
-    fclose(file);  // ¹Ø±ÕÎÄ¼ş
+    fclose(file);  // å…³é—­æ–‡ä»¶
     return 0;
 }
 
