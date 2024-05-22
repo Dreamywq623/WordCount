@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 int countCharacters(FILE *file) {
     int count = 0;
     char c;
