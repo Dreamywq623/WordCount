@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 int countCharacters(FILE *file) {
     int count = 0;
     char c;
@@ -15,7 +16,7 @@ int countCharacters(FILE *file) {
 int countWords(FILE *file) {
     int count = 0;
     char c;
-    int inWord = 0; // ±ê¼ÇÊÇ·ñÔÚµ¥´ÊÖĞ
+    int inWord = 0; // æ ‡è®°æ˜¯å¦åœ¨å•è¯ä¸­
 
     while ((c = fgetc(file)) != EOF) {
         if (isalpha(c)) {
@@ -31,10 +32,10 @@ int countWords(FILE *file) {
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
-        printf("²ÎÊı´íÎó£¡\n");
-        printf("ÓÃ·¨£º%s [parameter] [input_file_name]\n", argv[0]);
-        printf("[parameter] È¡ \"-c\" »ò \"-w\"\n");
-        printf("[input_file_name] Òª±»´¦ÀíµÄÎÄ±¾ÎÄ¼şÃû£¬Ä¬ÈÏ´æ·ÅÔÚÖ´ĞĞÎÄ¼şÄ¿Â¼ÏÂ\n");
+        printf("å‚æ•°é”™è¯¯ï¼\n");
+        printf("ç”¨æ³•ï¼š%s [parameter] [input_file_name]\n", argv[0]);
+        printf("[parameter] å– \"-c\" æˆ– \"-w\"\n");
+        printf("[input_file_name] è¦è¢«å¤„ç†çš„æ–‡æœ¬æ–‡ä»¶åï¼Œé»˜è®¤å­˜æ”¾åœ¨æ‰§è¡Œæ–‡ä»¶ç›®å½•ä¸‹\n");
         return 1;
     }
 
@@ -43,22 +44,22 @@ int main(int argc, char *argv[]) {
 
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
-        printf("ÎŞ·¨´ò¿ªÎÄ¼ş %s\n", filename);
+        printf("æ— æ³•æ‰“å¼€æ–‡ä»¶ %s\n", filename);
         return 1;
     }
 
     int count = 0;
     if (strcmp(parameter, "-c") == 0) {
         count = countCharacters(file);
-        printf("×Ö·ûÊı£º%d\n", count);
+        printf("å­—ç¬¦æ•°ï¼š%d\n", count);
     } else if (strcmp(parameter, "-w") == 0) {
         count = countWords(file);
-        printf("µ¥´ÊÊı£º%d\n", count);
+        printf("å•è¯æ•°ï¼š%d\n", count);
     } else {
-        printf("²ÎÊı´íÎó£¡\n");
-        printf("ÓÃ·¨£º%s [parameter] [input_file_name]\n", argv[0]);
-        printf("[parameter] È¡ \"-c\" »ò \"-w\"\n");
-        printf("[input_file_name] Òª±»´¦ÀíµÄÎÄ±¾ÎÄ¼şÃû£¬Ä¬ÈÏ´æ·ÅÔÚÖ´ĞĞÎÄ¼şÄ¿Â¼ÏÂ\n");
+        printf("å‚æ•°é”™è¯¯ï¼\n");
+        printf("ç”¨æ³•ï¼š%s [parameter] [input_file_name]\n", argv[0]);
+        printf("[parameter] å– \"-c\" æˆ– \"-w\"\n");
+        printf("[input_file_name] è¦è¢«å¤„ç†çš„æ–‡æœ¬æ–‡ä»¶åï¼Œé»˜è®¤å­˜æ”¾åœ¨æ‰§è¡Œæ–‡ä»¶ç›®å½•ä¸‹\n");
         return 1;
     }
 
